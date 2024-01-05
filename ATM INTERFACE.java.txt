@@ -1,0 +1,217 @@
+
+Bank.java:
+
+package bank_account;
+
+import java.util.Scanner;
+
+public class Bank {
+	String bname;
+	String loc;
+	String ifsc_code;
+	Account a;
+	public Bank(String bname, String loc, String ifsc_code) {
+		super();
+		this.bname = bname;
+		this.loc = loc;
+		this.ifsc_code = ifsc_code;
+	}
+	public void bankDetails() {
+		System.out.println("bname :"+bname);
+		System.out.println("loc :"+loc);
+		System.out.println("ifsc_code :"+ifsc_code);
+		
+		
+		if(a!=null) {
+			System.out.println("name :"+a.account_holder_name);
+			System.out.println("dob :"+a.dob);
+			System.out.println("pin :"+a.pin);
+			System.out.println("money :"+a.money);
+		}
+		else {
+			System.out.println("Open your account first");
+		}
+	}
+	public void createAccount(Account a) {
+		if(this.a==null)
+		{
+			this.a=a;
+			System.out.println("Account created");
+		}
+		else {
+			System.out.println("Already account is there");
+		}
+	}
+	public void Deposite(long ano,double money)
+	{
+		if(a.ano==ano) {
+			if(money!=0) {
+				a.money=a.money;
+				System.out.println("Amount of deposition is "+money);
+				System.out.println("total available balance is "+a.money);
+			}
+			else {
+				System.out.println("enter correct amount to add in a account");}
+			}
+			else {
+				System.out.println("enter your account number");
+			}
+		}
+	
+    public void Withdraw(long ano,double money) {
+    	if(a.ano==ano) {
+    		if(a.money>=money) {
+    			a.money=a.money-money;
+    			System.out.println("money withdraw is "+money);
+    			System.out.println("Available balance is :"+a.money);
+    		}else {
+    			System.out.println("balance is Insufficient");
+    			}
+    	}
+    		else {
+    			System.out.println("enter your correct amount to add in a account");
+    		}
+    	}
+    public void DeleteAccount() {
+    	this.a=null;
+    	System.out.println("account deleted");
+    }
+    
+    	
+
+	
+	
+
+}
+
+
+
+Account.java:
+
+package bank_account;
+
+public class Account {
+	
+	String account_holder_name;
+	String dob;
+	String pin;
+	double money;
+	long ano;
+	public Account(String account_holder_name, String dob, String pin, double money, long ano) {
+		super();
+		this.account_holder_name = account_holder_name;
+		this.dob = dob;
+		this.pin = pin;
+		this.money = money;
+		this.ano = ano;
+		
+	}
+	
+	
+	public void accountDetails() {
+		System.out.println(account_holder_name);
+		System.out.println(dob);
+		System.out.println(pin);
+		System.out.println(money);
+		System.out.println(ano);
+		
+	}
+	
+	
+
+}
+
+
+Account_Driver.java:
+
+package bank_account;
+
+import java.util.Scanner;
+
+public class Account_Driver {
+	public static void main(String[] args) {
+		Scanner sc =new Scanner(System.in);
+		System.out.println("enter your bank name to open account");
+		String bname=sc.next();
+		System.out.println("Enter address of your bank");
+		String loc=sc.next();
+		System.out.println("enter your bank ifsc_code");
+		String ifsc=sc.next();
+		Bank b =new Bank(bname,loc,ifsc);
+		
+		
+		boolean option=true;
+		while(option)
+		{
+			System.out.println("Enter your choice");
+			System.out.println("enter 1. to creating account");
+			System.out.println("enter 2. to check details");
+			System.out.println("enter 3. to deposite your money");
+			System.out.println("enter 4. to withdraw your money");
+			System.out.println("enter 5. to delete account");
+			System.out.println("enter 6. to exit and close");
+			
+			
+			
+			int choice=sc.nextInt();
+			switch(choice) {
+			case 1:{
+				System.out.println("enter your name");
+				String name=sc.next();
+				System.out.println("enter your dob");
+				String dob=sc.next();
+				System.out.println("enter your pin");
+				String pin=sc.next();
+				System.out.println("enter money to deposite");
+				double money=sc.nextDouble();
+				System.out.println("enter your account number of your choice");
+				long ano=sc.nextLong();
+				b.createAccount(new Account(name, dob, pin, money, ano));
+				System.out.println("======================================");
+			}
+			break;
+			case 2:{
+				b.bankDetails();
+				System.out.println("======================================");
+			}
+			break;
+			case 3:{
+				System.out.println("enter account number to deposite your money");
+				long ano1=sc.nextLong();
+				System.out.println("enter your money to deposite");
+				double money1=sc.nextDouble();
+				b.Deposite(ano1, money1);
+				System.out.println("======================================");
+			}
+			break;
+			case 4:{
+				System.out.println("enter account number to withdraw");
+				long ano1=sc.nextLong();
+				System.out.println("enter your money to withdraw");
+				double money1=sc.nextDouble();
+				b.Withdraw(ano1, money1);
+				System.out.println("======================================");
+			}
+			break;
+			case 5:{
+				b.DeleteAccount();
+			}
+			break;
+			case 6:{
+				System.out.println("Thankyou for using"+bname);
+				option=false;
+			}
+			break;
+			default:{
+				System.out.println("enter valid choice");
+				break;
+			}
+			}
+		}
+		
+	}
+
+} 
+
+
+
